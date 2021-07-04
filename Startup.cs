@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using premium_calculator_app.Services;
+using premium_calculator_app.Services.Interfaces;
 
 namespace premium_calculator_app
 {
@@ -25,6 +27,8 @@ namespace premium_calculator_app
             {
                 configuration.RootPath = "ClientApp/dist";
             });
+
+            services.AddScoped<IOccupationService, OccupationService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -38,6 +42,8 @@ namespace premium_calculator_app
             {
                 app.UseExceptionHandler("/Error");
             }
+
+            app.UseCors("CorsPolicy");
 
             app.UseStaticFiles();
             if (!env.IsDevelopment())
