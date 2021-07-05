@@ -1,119 +1,145 @@
 <div class="row">
-    <div class="col-md-10">
-      <h4>Monthly Premium Calculator</h4>
-    </div>
+  <div class="col-md-6">
+    <nav class="navbar navbar-light" style="background-color: #e3f2fd;">
+      Monthly Premium Calculator
+    </nav>
   </div>
-  
-  <form (ngSubmit)="onSubmit()"  #premiumForm="ngForm">
-    <div class="cross-validation" [class.cross-validation-error]="premiumForm.errors?.identityRevealed && (premiumForm.touched || premiumForm.dirty)">
-  
-      <div class="row">
-        <div class="col-md-3">
-          <label for="name">Name</label>
+</div>
+
+<form (ngSubmit)="onSubmit()" #premiumForm="ngForm">
+  <div class="cross-validation" [class.cross-validation-error]="premiumForm.errors?.identityRevealed && (premiumForm.touched || premiumForm.dirty)">
+
+    <div class="row">
+      <div class="col-md-3">
+        <label for="name">First Name</label>
+      </div>
+      <div class="col-md-3">
+        <input type="text" id="firstName" name="firstName" class="form-control"
+               required [(ngModel)]="model.firstName" pattern="[a-zA-Z][a-zA-Z ]+" #firstName="ngModel">
+      </div>
+      <div *ngIf="firstName.invalid && (firstName.dirty || firstName.touched)"
+           class="alert col-md-6">
+
+        <div class="error-massage" *ngIf="firstName.errors?.required">
+          Please enter First Name.
         </div>
-        <div class="col-md-3">
-          <input type="text" id="name" name="name" class="form-control"
-                 required [(ngModel)]="model.name" #name="ngModel">
-        </div>
-        <div *ngIf="name.invalid && (name.dirty || name.touched)"
-             class="alert col-md-3">
-  
-          <div *ngIf="name.errors?.required">
-            Name is required.
-          </div>
+        <div class="error-massage" *ngIf="firstName.errors?.pattern">
+          Only alphabets, or space(s) are allowed in First Name.
         </div>
       </div>
-  
-      
-  
-      <div class="row">
-        <div class="col-md-3">
-          <label for="dateOfBirth">Date Of Birth</label>
+    </div>
+
+    <div class="row">
+      <div class="col-md-3">
+        <label for="lastName">Last Name</label>
+      </div>
+      <div class="col-md-3">
+        <input type="text" id="lastName" name="lastName" class="form-control"
+               required [(ngModel)]="model.lastName" pattern="[a-zA-Z][a-zA-Z ]+" #lastName="ngModel">
+      </div>
+      <div *ngIf="lastName.invalid && (lastName.dirty || lastName.touched)"
+           class="alert col-md-6">
+
+        <div class="error-massage" *ngIf="lastName.errors?.required">
+          Please enter Last Name.
         </div>
-        <div class="col-md-3">  
-          <form class="form-inline">
-            <div class="form-group">
-              <div class="input-group">
-                <input class="form-control" placeholder="yyyy-mm-dd"
-                       name="dp" [(ngModel)]="model.dateOfBirth" (dateSelect)="onDateOfBirthSelect($event)"
-                       [minDate]="{year: 1900, month: 1, day: 1}"
-                       ngbDatepicker #d="ngbDatepicker" #dateOfBirth="ngModel">
-                <div class="input-group-append">
-                  <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button"></button>
-                </div>
+        <div class="error-massage" *ngIf="lastName.errors?.pattern">
+          Only alphabets, or space(s) are allowed in Last Name.
+        </div>
+      </div>
+    </div>
+
+
+    <div class="row">
+      <div class="col-md-3">
+        <label for="dateOfBirth">Date Of Birth</label>
+      </div>
+      <div class="col-md-3">
+        <form class="form-inline">
+          <div class="form-group">
+            <div class="input-group">
+              <input class="form-control" placeholder="yyyy-mm-dd"
+                     name="dp" [(ngModel)]="model.dateOfBirth" (dateSelect)="onDateOfBirthSelect($event)"
+                     [minDate]="{year: 1900, month: 1, day: 1}"
+                     ngbDatepicker #d="ngbDatepicker" #dateOfBirth="ngModel">
+              <div class="input-group-append">
+                <button class="btn btn-outline-secondary calendar fa fa-calendar" (click)="d.toggle()" type="button"></button>
               </div>
             </div>
-          </form>
-        </div>
-        <div *ngIf="dateOfBirth.invalid && (dateOfBirth.dirty || dateOfBirth.touched)"
-             class="alert col-md-3">
-  
-          <div *ngIf="dateOfBirth.errors?.required">
-            Date of birth is required.
           </div>
-        </div>
+        </form>
       </div>
+      <div *ngIf="dateOfBirth.invalid && (dateOfBirth.dirty || dateOfBirth.touched)"
+           class="alert col-md-3">
 
-      <div class="row g-2 align-items-center">
-        <div class="col-md-3">
-          <label for="txtAge" class="form-label">Age</label>
-        </div>
-        <div class="col-md-3">
-            <span>{{model.age}}</span>
+        <div class="error-massage" *ngIf="dateOfBirth.errors?.required">
+          Please select Date of birth.
         </div>
       </div>
-  
-      <div class="row g-3 align-items-center">
-        <div class="col-md-3">
-          <label for="ddlOccupation" class="form-label">Occupation</label>
-        </div>
-        <div class="col-md-3">
-          <select id="ddlOccupation" class="form-control" [(ngModel)]="model.occupation"  required #occupation="ngModel"
-          (change)="onOccupationChange($event)">
-            <option *ngFor="let occupation of occupations" [value]="occupation">{{occupation.name}}</option>            
-          </select>
-        </div>
-        <div *ngIf="occupation.invalid && (occupation.dirty || occupation.touched)"
-             class="alert col-md-3">
-  
-          <div *ngIf="occupation.errors?.required">
-            Occupation is required.
-          </div>
-        </div>
-      </div>
-  
-      <div class="row">
-        <div class="col-md-3">
-          <label for="deathSumInsured">Death Sum Insured</label>
-        </div>
-        <div class="col-md-3">
-          <input type="text" id="deathSumInsured" name="deathSumInsured" class="form-control"
-                 required [(ngModel)]="model.deathSumInsured" #deathSumInsured="ngModel">
-        </div>
-        <div *ngIf="deathSumInsured.invalid && (deathSumInsured.dirty || deathSumInsured.touched)"
-             class="alert col-md-3">
-  
-          <div *ngIf="deathSumInsured.errors?.required">
-            Death sum insured is required.
-          </div>
-        </div>
-      </div>
-  
-      <div class="row">
-        <div class="col-md-3">
-          <button type="submit" [disabled]="!premiumForm.form.valid" class="btn btn-primary">Calculate Premium</button>
-        </div>
-      </div>
-  
-      <div class="row">
-        <div class="col-md-3">
-          <div class="mb-3">
-            <span> {{model.deathPremium}}</span>
-          </div>
-        </div>
-      </div>
-  
     </div>
-  </form>
-  
-  
+
+    <div class="row g-2 align-items-center">
+      <div class="col-md-3">
+        <label for="txtAge" class="form-label">Age</label>
+      </div>
+      <div class="col-md-3">
+        <span>{{model.age}}</span>
+      </div>
+    </div>
+
+    <div class="row g-3 align-items-center">
+      <div class="col-md-3">
+        <label for="ddlOccupation" class="form-label">Occupation</label>
+      </div>
+      <div class="col-md-3">
+        <select id="ddlOccupation" class="form-control" [(ngModel)]="model.occupation" required #occupation="ngModel"
+                (change)="onOccupationChange($event)">
+          <option *ngFor="let occupation of occupations" [value]="occupation">{{occupation.name}}</option>
+        </select>
+      </div>
+      <div *ngIf="occupation.invalid && (occupation.dirty || occupation.touched)"
+           class="alert col-md-3">
+
+        <div class="error-massage" *ngIf="occupation.errors?.required">
+          Please select Occupation.
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-3">
+        <label for="deathSumInsured">Death Sum Insured</label>
+      </div>
+      <div class="col-md-3">
+        <input type="number" id="deathSumInsured" name="deathSumInsured" class="form-control"
+               required [ngModel]="model.deathSumInsured" #deathSumInsured="ngModel">
+      </div>
+      <div *ngIf="deathSumInsured.invalid && (deathSumInsured.dirty || deathSumInsured.touched)"
+           class="alert col-md-3">
+
+        <div class="error-massage" *ngIf="deathSumInsured.errors?.required">
+          Please enter Death Sum Insured.
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-3">
+        <div class="row">
+          <div class="col-md-6">
+            <button type="submit" [disabled]="!premiumForm.form.valid" class="btn btn-primary">Calculate Premium</button>
+          </div>
+          <div class="col-md-6">
+            <button (click)="onReset()" class="btn btn-primary">Reset</button>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3" *ngIf="model.deathPremium!=''">
+        <div class="mb-3 alert alert-primary">
+          <h5> <span> Monthly Premium is {{model.deathPremium | currency:'AUD':'$'}}</span> </h5>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+

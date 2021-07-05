@@ -2,8 +2,9 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Customer = void 0;
 var Customer = /** @class */ (function () {
-    function Customer(name, age, dateOfBirth, occupation, deathSumInsured, deathPremium) {
-        this.name = name;
+    function Customer(firstName, lastName, age, dateOfBirth, occupation, deathSumInsured, deathPremium) {
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.age = age;
         this.dateOfBirth = dateOfBirth;
         this.occupation = occupation;

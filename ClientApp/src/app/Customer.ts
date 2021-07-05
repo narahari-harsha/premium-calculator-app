@@ -2,7 +2,8 @@ import { Occupation } from './occupation';
 
 export class Customer {
     constructor(
-        public name: string,
+        public firstName: string,
+        public lastName: string,
         public age: number,
         public dateOfBirth: Date,
         public occupation: Occupation,

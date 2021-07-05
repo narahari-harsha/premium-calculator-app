@@ -10,7 +10,7 @@ import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
   styleUrls: ['./calculate-premium.component.css']
 })
 export class CalculatePremiumComponent implements OnInit {
-  @Input() model: Customer = new Customer('', 0, new Date(1991, 7, 10),new Occupation("Author", new OccupationRating("White Collar", 1.25)), 100000, "");
+  @Input() model: Customer = new Customer('', '', 0, new Date(1991, 7, 10),new Occupation("Author", new OccupationRating("White Collar", 1.25)), 100000, "");
   deathPremium:string = "";
   age:string="20";
 
@@ -62,4 +62,9 @@ export class CalculatePremiumComponent implements OnInit {
     }
     return "";
   }
+  
+  public onReset(){
+	  this.model = new Customer('', '', 0, new Date(1991, 7, 10),new Occupation("Author", new OccupationRating("White Collar", 1.25)), 100000, "");
+  }
+  
 }
